@@ -30,7 +30,7 @@ export class ErrorBoundary extends Component<Props, State> {
           <GlassCard padding="2rem" className="max-w-md w-full border-danger/20 glow-danger">
             <h2 className="font-heading text-xl font-bold text-white mb-2">Something broke.</h2>
             <p className="text-sm text-white/50 mb-6 font-medium">
-              VAULT encountered an unexpected rendering error.
+              ARDSOFT encountered an unexpected rendering error.
             </p>
             
             <button

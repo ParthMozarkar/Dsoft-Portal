@@ -62,15 +62,17 @@ export function AppShell() {
 
   const role: UserRole = profile?.role ?? 'student';
   const currentNav = desktopNav.find(n => location.pathname.startsWith(n.to));
-  const pageTitle = currentNav?.label ?? 'VAULT';
+  const pageTitle = currentNav?.label ?? 'ARDSOFT';
 
   return (
     <div className="min-h-screen bg-void">
       {/* Sidebar (Desktop only) */}
       <aside className="hidden md:flex fixed inset-y-0 left-0 w-64 flex-col bg-white/[0.02] border-r border-white/5 z-50">
-        <div className="p-8">
-           <h1 className="font-heading text-2xl font-black text-white tracking-tight">VAULT<span className="text-cyan">.</span></h1>
-           <p className="text-[10px] text-white/20 uppercase tracking-[0.2em] font-bold mt-1">Portal</p>
+        <div className="p-6">
+           <Link to="/dashboard" className="block">
+              <img src="/logo.png" alt="ARDSOFT" className="h-12 w-auto object-contain" />
+           </Link>
+           <p className="text-[10px] text-white/20 uppercase tracking-[0.2em] font-bold mt-2 ml-1">Student Portal</p>
         </div>
 
         <nav className="flex-1 px-4 space-y-1 overflow-y-auto no-scrollbar">

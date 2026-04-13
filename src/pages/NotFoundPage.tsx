@@ -12,7 +12,7 @@ export function NotFoundPage() {
         >
           <h1 className="text-8xl font-heading font-black text-white/5 mb-[-2rem] select-none">404</h1>
           <h2 className="text-2xl font-heading font-bold text-white mb-2">Signal Lost.</h2>
-          <p className="text-sm text-white/30 font-medium">The page you are looking for does not exist in the VAULT core.</p>
+          <p className="text-sm text-white/30 font-medium">The page you are looking for does not exist in the ARDSOFT core.</p>
         </motion.div>
 
         <motion.div

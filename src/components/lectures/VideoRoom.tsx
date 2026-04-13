@@ -170,7 +170,7 @@ export function VideoRoom({ url, onLeave, isTeacher, userName }: { url: string; 
   if (!call) return (
      <div className="fixed inset-0 z-[200] bg-void flex flex-col items-center justify-center gap-4">
         <Spinner size="lg" />
-        <p className="font-heading text-white/40 animate-pulse">Initializing vault secure connection...</p>
+        <p className="font-heading text-white/40 animate-pulse">Initializing ardsoft secure connection...</p>
      </div>
   );
 
