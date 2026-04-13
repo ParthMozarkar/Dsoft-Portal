@@ -296,7 +296,7 @@ export function NotesPage() {
       window.URL.revokeObjectURL(url);
     } catch (err) {
       console.error('Download error:', err);
-      toast('Opening in new tab instead', 'warning');
+      toast('Opening in new tab instead', 'error');
       window.open(note.file_url, '_blank');
     }
   };
