@@ -263,19 +263,33 @@ export function NotesPage() {
 
   /* ── Download handler ──────────────────────────── */
   const handleDownload = async (note: EnrichedNote) => {
-    // Try signed URL for private buckets
-    const pathMatch = note.file_url.split('/notes-files/')[1];
-    if (pathMatch) {
-      const { data } = await supabase.storage
-        .from('notes-files')
-        .createSignedUrl(decodeURIComponent(pathMatch), 60);
-      if (data?.signedUrl) {
-        window.open(data.signedUrl, '_blank');
-        return;
-      }
+    try {
+      toast('Starting download...', 'info');
+      
+      const response = await fetch(note.file_url);
+      const blob = await response.blob();
+      
+      // Extract extension from the URL if not in title
+      const ext = note.file_url.split('.').pop()?.split('?')[0] || 'pdf';
+      const fileName = note.title.toLowerCase().endsWith(`.${ext}`) 
+        ? note.title 
+        : `${note.title}.${ext}`;
+        
+      const url = window.URL.createObjectURL(blob);
+      const link = document.createElement('a');
+      link.href = url;
+      link.setAttribute('download', fileName);
+      document.body.appendChild(link);
+      link.click();
+      
+      // Cleanup
+      link.parentNode?.removeChild(link);
+      window.URL.revokeObjectURL(url);
+    } catch (err) {
+      console.error('Download error:', err);
+      toast('Fallback to direct download', 'warning');
+      window.open(note.file_url, '_blank');
     }
-    // Fallback to direct URL
-    window.open(note.file_url, '_blank');
   };
 
   /* ── Render ────────────────────────────────────── */
