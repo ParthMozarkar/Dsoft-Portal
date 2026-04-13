@@ -69,8 +69,21 @@ export function AppShell() {
       {/* Sidebar (Desktop only) */}
       <aside className="hidden md:flex fixed inset-y-0 left-0 w-64 flex-col bg-white/[0.02] border-r border-white/5 z-50">
         <div className="p-6">
-           <Link to="/dashboard" className="block">
-              <img src="/logo.png" alt="ARDSOFT" className="h-12 w-auto object-contain" />
+           <Link to="/dashboard" className="flex items-center gap-3">
+              <div className="w-10 h-10 flex-shrink-0 relative">
+                 <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" className="w-full h-full drop-shadow-[0_0_8px_rgba(168,85,247,0.4)]">
+                    <path d="M13 2L3 14H12L11 22L21 10H12L13 2Z" fill="url(#logo-gradient)" />
+                    <defs>
+                       <linearGradient id="logo-gradient" x1="3" y1="2" x2="21" y2="22" gradientUnits="userSpaceOnUse">
+                          <stop stopColor="#A855F7" />
+                          <stop offset="1" stopColor="#3B82F6" />
+                       </linearGradient>
+                    </defs>
+                 </svg>
+              </div>
+              <h1 className="font-heading text-2xl font-black text-white tracking-tight uppercase">
+                 ARDSOFT<span className="text-cyan">.</span>
+              </h1>
            </Link>
            <p className="text-[10px] text-white/20 uppercase tracking-[0.2em] font-bold mt-2 ml-1">Student Portal</p>
         </div>
