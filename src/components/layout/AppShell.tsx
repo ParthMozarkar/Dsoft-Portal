@@ -70,7 +70,7 @@ export function AppShell() {
       <aside className="hidden md:flex fixed inset-y-0 left-0 w-64 flex-col bg-white/[0.02] border-r border-white/5 z-50">
         <div className="p-6">
            <Link to="/dashboard" className="flex items-center gap-3">
-              <div className="w-10 h-10 flex-shrink-0 relative">
+              <div className="w-9 h-9 flex-shrink-0 relative">
                  <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" className="w-full h-full drop-shadow-[0_0_8px_rgba(168,85,247,0.4)]">
                     <path d="M13 2L3 14H12L11 22L21 10H12L13 2Z" fill="url(#logo-gradient)" />
                     <defs>
@@ -81,11 +81,13 @@ export function AppShell() {
                     </defs>
                  </svg>
               </div>
-              <h1 className="font-heading text-2xl font-black text-white tracking-tight uppercase">
-                 ARDSOFT<span className="text-cyan">.</span>
-              </h1>
+              <div className="flex flex-col">
+                 <h1 className="font-heading text-xl font-black text-white tracking-tighter leading-none uppercase">
+                    ARDSOFT<span className="text-cyan">.</span>
+                 </h1>
+                 <p className="text-[8px] text-white/20 uppercase tracking-[0.2em] font-bold mt-0.5">IT SOLUTIONS</p>
+              </div>
            </Link>
-           <p className="text-[10px] text-white/20 uppercase tracking-[0.2em] font-bold mt-2 ml-1">Student Portal</p>
         </div>
 
         <nav className="flex-1 px-4 space-y-1 overflow-y-auto no-scrollbar">

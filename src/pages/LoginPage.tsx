@@ -48,9 +48,9 @@ export function LoginPage() {
         className="w-full max-w-md relative z-10"
       >
         {/* Logo */}
-        <div className="flex flex-col items-center mb-10">
-           <div className="flex items-center gap-4 mb-4">
-              <div className="w-14 h-14 relative">
+        <div className="flex flex-col items-center mb-12">
+           <div className="flex items-center gap-4">
+              <div className="w-12 h-12 relative">
                  <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" className="w-full h-full drop-shadow-[0_0_12px_rgba(168,85,247,0.5)]">
                     <path d="M13 2L3 14H12L11 22L21 10H12L13 2Z" fill="url(#login-logo-gradient)" />
                     <defs>
@@ -61,11 +61,13 @@ export function LoginPage() {
                     </defs>
                  </svg>
               </div>
-              <h1 className="font-heading text-4xl font-black text-white tracking-tight uppercase">
-                 ARDSOFT<span className="text-cyan">.</span>
-              </h1>
+              <div className="flex flex-col">
+                 <h1 className="font-heading text-3xl font-black text-white tracking-tighter leading-none uppercase">
+                    ARDSOFT<span className="text-cyan">.</span>
+                 </h1>
+                 <p className="text-[10px] text-white/30 uppercase tracking-[0.3em] font-bold mt-0.5">IT SOLUTIONS</p>
+              </div>
            </div>
-           <p className="text-white/30 text-sm tracking-widest uppercase font-bold">Student Portal — Sign in</p>
         </div>
 
         <GlassCard padding="2rem" hover={false}>
