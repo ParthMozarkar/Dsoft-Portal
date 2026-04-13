@@ -124,7 +124,13 @@ export function NotesPage() {
         .select('id, name')
         .in('id', batchIds);
       const batchMap = new Map(batchData?.map((b) => [b.id, b.name]) ?? []);
-      setBatches(batchData?.map((b) => ({ id: b.id, name: b.name })) ?? []);
+      const batchDataOptions = batchData?.map((b) => ({ id: b.id, name: b.name })) ?? [];
+      setBatches(batchDataOptions);
+      
+      // Auto-select batch if only one exists
+      if (batchDataOptions.length === 1) {
+        setUploadBatch(batchDataOptions[0].id);
+      }
 
       const { data: notesData } = await supabase
         .from('notes')
@@ -443,7 +449,20 @@ export function NotesPage() {
           </div>
           <div>
             <label className="block text-[12px] text-white/50 uppercase tracking-wider mb-2 font-medium">File</label>
-            <FileDropZone onFile={setUploadFile} currentFile={uploadFile} disabled={uploading} />
+            <FileDropZone 
+              onFile={(file) => {
+                setUploadFile(file);
+                if (!uploadTitle) {
+                  // Set title from filename, removing extension and replacing hyphens/underscores with spaces
+                  const name = file.name.split('.').slice(0, -1).join('.')
+                    .replace(/[_-]/g, ' ')
+                    .replace(/\b\w/g, l => l.toUpperCase());
+                  setUploadTitle(name);
+                }
+              }} 
+              currentFile={uploadFile} 
+              disabled={uploading} 
+            />
           </div>
 
           {/* Progress bar */}
