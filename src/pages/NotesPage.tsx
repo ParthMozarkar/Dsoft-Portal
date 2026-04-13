@@ -266,16 +266,25 @@ export function NotesPage() {
     try {
       toast('Starting download...', 'info');
       
-      const response = await fetch(note.file_url);
-      const blob = await response.blob();
+      const pathMatch = note.file_url.split('/notes-files/')[1];
+      if (!pathMatch) {
+         throw new Error('Could not find file path');
+      }
+
+      const { data, error } = await supabase.storage
+        .from('notes-files')
+        .download(decodeURIComponent(pathMatch.split('?')[0]));
+
+      if (error) throw error;
+      if (!data) throw new Error('No data received');
       
-      // Extract extension from the URL if not in title
+      // Extract extension
       const ext = note.file_url.split('.').pop()?.split('?')[0] || 'pdf';
       const fileName = note.title.toLowerCase().endsWith(`.${ext}`) 
         ? note.title 
         : `${note.title}.${ext}`;
         
-      const url = window.URL.createObjectURL(blob);
+      const url = window.URL.createObjectURL(data);
       const link = document.createElement('a');
       link.href = url;
       link.setAttribute('download', fileName);
@@ -287,7 +296,7 @@ export function NotesPage() {
       window.URL.revokeObjectURL(url);
     } catch (err) {
       console.error('Download error:', err);
-      toast('Fallback to direct download', 'warning');
+      toast('Opening in new tab instead', 'warning');
       window.open(note.file_url, '_blank');
     }
   };
