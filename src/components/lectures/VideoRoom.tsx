@@ -146,7 +146,7 @@ export function VideoRoom({ url, onLeave, isTeacher, userName }: { url: string; 
     if (!url || callRef.current) return;
     
     let c = DailyIframe.getCallInstance();
-    if (!c || c.destroyed) {
+    if (!c) {
       c = DailyIframe.createCallObject();
     }
     
@@ -154,7 +154,7 @@ export function VideoRoom({ url, onLeave, isTeacher, userName }: { url: string; 
     setCall(c);
 
     const state = c.meetingState();
-    if (state === 'new' || state === 'left') {
+    if (state === ('new' as any) || state === 'left-meeting') {
       c.join({ url, userName }).catch((e: any) => {
           if (e.message?.includes('already joined') || e.message?.includes('destroyed')) return;
           console.error('Join error:', e);
