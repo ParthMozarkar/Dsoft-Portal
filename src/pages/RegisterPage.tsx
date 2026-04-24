@@ -20,7 +20,7 @@ export function RegisterPage() {
     setLoading(true);
 
     try {
-      // 1. Look up the enrollment code in batches
+      // 1. Look up the enrollment code in batches to fail early
       const { data: batch, error: batchError } = await supabase
         .from('batches')
         .select('id')
@@ -61,33 +61,16 @@ export function RegisterPage() {
         return;
       }
 
-      const user = signInData.user;
-      if (!user) {
+      if (!signInData.user) {
          setError('Registration failed: no user returned');
          setLoading(false);
          return;
       }
 
-      // 4. Fetch the profile created by the handle_new_user trigger
-      const { data: profileData, error: profileError } = await supabase
-        .from('profiles')
-        .select('id')
-        .eq('user_id', user.id)
-        .single();
-
-      if (profileError || !profileData) {
-        setError('Failed to fetch profile: ' + (profileError?.message ?? 'Profile not found'));
-        setLoading(false);
-        return;
-      }
-
-      // 5. Enroll in the batch
-      const { error: enrollError } = await supabase
-        .from('batch_enrollments')
-        .insert({
-          batch_id: batch.id,
-          student_id: profileData.id,
-        });
+      // 4. Enroll in the batch using secure RPC
+      const { error: enrollError } = await supabase.rpc('enroll_student', {
+        p_code: enrollmentCode.trim()
+      });
 
       if (enrollError) {
         setError('Failed to enroll in batch: ' + enrollError.message);
@@ -95,7 +78,7 @@ export function RegisterPage() {
         return;
       }
 
-      // 6. Success — redirect to dashboard
+      // 5. Success — redirect to dashboard
       navigate('/dashboard', { replace: true });
     } catch (err: unknown) {
       setError(err instanceof Error ? err.message : 'An unexpected error occurred');
